@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Usage - run  phing -f linker.xml -Dp=/var/www/je -->
+
+<project name="linker" default="link" basedir=".">
+    <property name="p" value="" />
+    <property name="URI.base" value="./"/>
+    <resolvepath propertyName="URI.base" file="${URI.base}"/>
+    <property name="rootPath" value="${URI.base}"/>
+    <import file="${rootPath}/link-utils.xml"/>
+    <property name="targetFiles" value="${p}/language/en-GB/plg_system_switchuser.ini, 
+                        ${p}/language/en-GB/plg_system_switchuser.sys.ini, 
+                        ${p}/language/de-DE/plg_system_switchuser.ini,
+                        ${p}/language/de-DE/plg_system_switchuser.sys.ini,
+                        " />
+    <property name="targetDirs" value="${p}/plugins/system/switchuser/, 
+                        ${p}/media/switchuser/,
+                        " />
+
+    <target name="link" description="Build symbolic links to the git version">
+
+        <echo>Current Path: ${rootPath}</echo>
+        <echo>Target Path: ${p}</echo>
+
+        <!-- Delete folders, but don't worry if it fails as it could be a symbolic link -->
+        <phingcall target="deleteall"><property name="files" value="${targetFiles}, ${targetDirs}"/></phingcall>
+
+        <!-- Create System Links -->
+        <echo>Creating symlink from ${p}/plugins/system/switchuser to ${rootPath}/switchuser</echo>
+        <phingcall target="symdir">
+            <property name="target" value="${rootPath}"/>
+            <property name="link" value="${p}/plugins/system/switchuser"/>
+        </phingcall>
+        <phingcall target="symdir">
+            <property name="target" value="${rootPath}/media"/>
+            <property name="link" value="${p}/media/switchuser"/>
+        </phingcall>
+
+        <echo>Creating symlink from ${p}/language/en-GB/en-GB.plg_system_switchuser.ini to ${rootPath}/language/en-GB/en-GB.plg_system_switchuser.ini</echo>
+        <phingcall target="symfile">
+            <property name="target" value="${rootPath}/language/en-GB/plg_system_switchuser.ini"/>
+            <property name="link" value="${p}/administrator/language/en-GB/plg_system_switchuser.ini"/>
+        </phingcall>
+        <phingcall target="symfile">
+            <property name="target" value="${rootPath}/language/en-GB/plg_system_switchuser.sys.ini"/>
+            <property name="link" value="${p}/administrator/language/en-GB/plg_system_switchuser.sys.ini"/>
+        </phingcall>
+        <echo>Creating symlink from ${p}/language/de-DE/de-DE.plg_system_switchuser.ini to ${rootPath}/de-DE/de-DE.plg_system_switchuser.ini</echo>
+        <phingcall target="symfile">
+            <property name="target" value="${rootPath}/language/plg_system_switchuser.ini"/>
+            <property name="link" value="${p}/administrator/language/en-DE/plg_system_switchuser.ini"/>
+        </phingcall>
+        <phingcall target="symfile">
+            <property name="target" value="${rootPath}/language/plg_system_switchuser.sys.ini"/>
+            <property name="link" value="${p}/administrator/language/en-DE/plg_system_switchuser.sys.ini"/>
+        </phingcall>
+
+    </target>
+
+    <target name="unlink" description="Remove symbolic links and copy the files">
+        <echo>Current Path: ${rootPath}</echo>
+        <echo>Target Path: ${p}</echo>
+
+        <!-- Delete folders, but don't worry if it fails as it could be a symbolic link -->
+        <phingcall target="deleteall"><property name="files" value="${targetFiles}, ${targetDirs}"/></phingcall>
+
+        <!-- Copy the files -->
+        <phingcall target="copydir">
+            <property name="to" value="${p}$/plugins/system/switchuser"/>
+            <property name="from" value="${rootPath}/"/>
+        </phingcall>
+        <phingcall target="copydir">
+            <property name="to" value="${p}/media/switchuser/"/>
+            <property name="from" value="${rootPath}/media/"/>
+        </phingcall>
+        <phingcall target="copyfile">
+            <property name="to" value="${p}/administrator/language/en-GB/"/> 
+            <property name="from" value="${rootPath}/language/en-GB/"/>
+            <property name="name" value="plg_system_switchuser.ini"/>
+        </phingcall>
+        <phingcall target="copyfile">
+            <property name="to" value="${p}/administrator/language/en-GB/"/> 
+            <property name="from" value="${rootPath}/language/en-GB/"/>
+            <property name="name" value="plg_system_switchuser.sys.ini"/>
+        </phingcall>
+        <phingcall target="copyfile">
+            <property name="to" value="${p}/administrator/language/en-DE/"/> 
+            <property name="from" value="${rootPath}/language/en-DE/"/>
+            <property name="name" value="plg_system_switchuser.ini"/>
+        </phingcall>
+        <phingcall target="copyfile">
+            <property name="to" value="${p}/administrator/language/en-DE/"/> 
+            <property name="from" value="${rootPath}/language/en-DE/"/>
+            <property name="name" value="plg_system_switchuser.sys.ini"/>
+        </phingcall>
+
+    </target>
+
+</project>

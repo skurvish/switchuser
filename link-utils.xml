@@ -1,0 +1,57 @@
+<!-- phing linking utilities -->
+<project name="link-utils" basedir="." default="...">
+    <target name="deleteall">
+        <!-- Delete folders and files, even if symlinks -->
+           <foreach param="filename" target="deleteitem" >
+                <filelist dir="/" 
+                    files="${files}" />
+            </foreach>
+    </target>
+
+    <target name="deleteitem">
+        <echo>deleteing item ${filename}</echo>
+        <!-- we have to do some magic in here as symlinks directories don't report unless we follow them, BUT, they report as a dir but need to be deleted as a file -->
+        <if><available file="${filename}" type="file" />
+            <then><delete file="${filename}" verbose="true" failonerror="false" /></then>
+        </if>
+        <if><available file="${filename}" type="dir" />
+            <then><delete dir="${filename}" includeemptydirs="true" verbose="false" failonerror="false" /></then>
+        </if>
+        <if><available file="${filename}" type="dir" followSymlinks="true"/>
+            <then><delete file="${filename}" verbose="true" failonerror="false" /></then>
+        </if>
+        <if><available file="${filename}" type="file" followSymlinks="true"/>
+            <then><delete file="${filename}" verbose="true" failonerror="false" /></then>
+        </if>
+     </target>
+
+    <target name="symdir">
+        <echo msg="Link is ${link}"/>
+        <symlink target="${target}" link="${link}" overwrite="true" />
+        <exec command="chmod 775 ${link}" />
+    </target>
+
+    <target name="symfile">
+        <symlink target="${target}" link="${link}"  overwrite="true" />
+        <exec command="chmod 664 ${link}" />
+    </target>
+
+    <target name="copydir">
+         <copy todir="${to}">
+           <fileset dir="${from}">
+                <include name="**"></include>
+                <exclude name="**/.svn/**"></exclude>
+                <exclude name="**/*.zip"></exclude>
+            </fileset>
+        </copy>
+        <echo msg="to is ${to}" />
+        <exec command="find ${to}. -type d -exec chmod 775 {} \;" />
+        <exec command="find . -type f -exec chmod 664 {} \;" dir="${to}"/>
+        <exec command="chmod 775 ${to}" />
+     </target>
+
+    <target name="copyfile">
+        <copy file="${from}${name}" todir="${to}" overwrite="true" />
+        <exec command="chmod 664 ${to}${name};" />
+    </target>
+</project>
