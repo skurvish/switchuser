@@ -16,8 +16,8 @@
 		<folder>src</folder>
 		<file>switchuser.xml</file>
 	</files>
-	<media folder="media">
-		<folder>switchuser/images</folder>
+	<media folder="media" destination="switchuser">
+		<folder>images</folder>
 	</media>
 
 	<languages folder="language">
