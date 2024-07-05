@@ -84,13 +84,13 @@
             <property name="name" value="plg_system_switchuser.sys.ini"/>
         </phingcall>
         <phingcall target="copyfile">
-            <property name="to" value="${p}/administrator/language/en-DE/"/> 
-            <property name="from" value="${rootPath}/language/en-DE/"/>
+            <property name="to" value="${p}/administrator/language/de-DE/"/> 
+            <property name="from" value="${rootPath}/language/de-DE/"/>
             <property name="name" value="plg_system_switchuser.ini"/>
         </phingcall>
         <phingcall target="copyfile">
-            <property name="to" value="${p}/administrator/language/en-DE/"/> 
-            <property name="from" value="${rootPath}/language/en-DE/"/>
+            <property name="to" value="${p}/administrator/language/de-DE/"/> 
+            <property name="from" value="${rootPath}/language/de-DE/"/>
             <property name="name" value="plg_system_switchuser.sys.ini"/>
         </phingcall>
 
