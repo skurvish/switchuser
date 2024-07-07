@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- Usage - run  phing -f linker.xml -Dp=/var/www/je -->
+<!-- Usage - run  phing -f linker.xml -Dp=/var/www/html -->
 
 <project name="linker" default="link" basedir=".">
     <property name="p" value="" />
@@ -47,12 +47,12 @@
         </phingcall>
         <echo>Creating symlink from ${p}/language/de-DE/de-DE.plg_system_switchuser.ini to ${rootPath}/de-DE/de-DE.plg_system_switchuser.ini</echo>
         <phingcall target="symfile">
-            <property name="target" value="${rootPath}/language/plg_system_switchuser.ini"/>
-            <property name="link" value="${p}/administrator/language/en-DE/plg_system_switchuser.ini"/>
+            <property name="target" value="${rootPath}/language/de-DE/plg_system_switchuser.ini"/>
+            <property name="link" value="${p}/administrator/language/de-DE/plg_system_switchuser.ini"/>
         </phingcall>
         <phingcall target="symfile">
-            <property name="target" value="${rootPath}/language/plg_system_switchuser.sys.ini"/>
-            <property name="link" value="${p}/administrator/language/en-DE/plg_system_switchuser.sys.ini"/>
+            <property name="target" value="${rootPath}/language/de-DE/plg_system_switchuser.sys.ini"/>
+            <property name="link" value="${p}/administrator/language/de-DE/plg_system_switchuser.sys.ini"/>
         </phingcall>
 
     </target>

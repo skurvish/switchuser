@@ -26,4 +26,20 @@
 		<language tag="de-DE">de-DE/plg_system_switchuser.ini</language>
 		<language tag="de-DE">de-DE/plg_system_switchuser.sys.ini</language>
 	</languages>
+
+	<config>
+	  <fields name="params" >
+	    <fieldset name="basic">
+			<field 
+				name="login" 
+				type="menuitem" 
+				default="" 
+				disable="separator" 
+				label="SWITCHUSER_LOGIN_REDIRECT_URL" 
+				description="SWITCHUSER_LOGIN_REDIRECT_URL_DESC" > 
+				<option value="">JDEFAULT</option>
+			</field>
+	    </fieldset>
+	  </fields>
+	</config>
 </extension>
