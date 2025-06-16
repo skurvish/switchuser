@@ -85,7 +85,7 @@ class Switchuser extends CMSPlugin  implements SubscriberInterface, DatabaseAwar
 		$replacements = array();
 		foreach ($users as $userId => $user) {
 			$patterns[] = '|<a href="'.addcslashes(Route::_('index.php?option=com_users&amp;task=user.edit&amp;id='.(int)$userId), '?').'"[^>]+>\s*'.htmlentities($user->name).'\s*</a>|';
-			$replacements[] = '${0} <a href="'.URI::root().'index.php?option=com_users&switchuser=1&uid='.$userId.'" target="_blank" title="'.sprintf(Text::_('SWITCHUSER_FRONT_END'), htmlentities($user->username)).'"><img style="margin: 0 10px;" src="'.URI::root().'media/switchuser/images/frontend-login.png" alt="'.sprintf(Text::_('SWITCHUSER_FRONT_END'), htmlentities($user->username)).'" /></a>';
+			$replacements[] = '${0} <div><a href="'.URI::root().'index.php?option=com_users&switchuser=1&uid='.$userId.'" class="btn btn-secondary btn-sm" style="margin:0.5em 0;display:inline-block;" target="_blank" title="'.sprintf(Text::_('SWITCHUSER_FRONT_END'), htmlentities($user->username)).'"><span class="icon-user user" aria-hidden="true" style="margin-left:0.25em;"></span></a></div>';
 		}
 
 		$content = preg_replace($patterns, $replacements, $content);

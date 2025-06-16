@@ -16,9 +16,6 @@
 		<folder>src</folder>
 		<file>switchuser.xml</file>
 	</files>
-	<media folder="media" destination="switchuser">
-		<folder>images</folder>
-	</media>
 
 	<languages folder="language">
 		<language tag="en-GB">en-GB/plg_system_switchuser.ini</language>
